@@ -1,32 +1,42 @@
-import Title from "@/componentes/Title";
+import CardFilme from '@/components/CardFilme'
+import Title from '@/components/Title'
 
-export default function Home() {
+async function carregarFilmes(){
+  const url = "https://api.themoviedb.org/3/trending/movie/week?api_key=1e922667481ab207d642450b0efb461e&language=pt-br"
+  const resposta = await fetch(url)
+  const json = await resposta.json()
+  return json.results
+}
+
+export default async function Home() {
+  
+  const filmes = await carregarFilmes()
+
   return (
     <>
-    <nav className="flex p-4 bg-amber-900">
-      <ul className="flex gap-20">
-        <li>
-          <a href="#">
-            <h1>Fiap Filmes</h1>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            filmes
-          </a>
-        </li>
-      </ul>
-    </nav>
-      <Title>Em alta</Title>
-      <div id="card" className="flex flex-col w-40 justify-center item-center m-2">
-        <img className="rounded" src="https://place-hold.it/150X220/666" alt=""/>
-        <span className="font-bold text-center line-clamp-1">titulo do filme</span>
-        <div>
-          <span>6.0</span>
-        </div>
-        <a href="#" className="bg-pink-600 py-2 w-full rounded text-center">detalhes</a>
-      </div>
-          
+      <nav className="bg-amber-900 p-4">
+        <ul>
+          <li><a href="#"><h1 className="text-3xl font-bold">Fiap Filmes</h1></a></li>
+        </ul>
+        <ul>
+          <li><a href="#">Fav</a></li>
+        </ul>
+        <ul>
+          <li><a href="#">Filmes</a></li>
+        </ul>
+        
+      </nav>
+
+     <Title>em alta</Title>
+
+      <section className='flex flex-wrap'>
+        {filmes.map(filme => <CardFilme filme={filme} /> )}
+      </section>
+
+     <Title>lançamentos</Title>
+     <Title>favoritos</Title>
+   
     </>
+   
   )
 }
