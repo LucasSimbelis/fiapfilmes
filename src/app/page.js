@@ -6,7 +6,7 @@ async function carregarFilmes(){
   const resposta = await fetch(url)
   const json = await resposta.json()
   return json.results
-}
+} 
 
 export default async function Home() {
   
