@@ -4,17 +4,19 @@ import loginimage from "@/images/login.jpg"
 import {useState} from "react"
 import {useRouter} from "next/navigation"
 import { toast } from "react-hot-toast";
+import { serverLogin } from "@/actions/user";
 
 export default function login(){
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
-    const [push] = useRouter()
+    const {push} = useRouter()
 
     function login(e){
         e.preventDefault()
-        if(email == "lucas@email.com" && senha == "123")
+        if(email == "lucas@email.com" && senha == "123"){
+        serverLogin()
         push("/")
-        else{
+        }else{
             toast.error("dados invalidos")
         }
     }
